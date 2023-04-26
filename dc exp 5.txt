@@ -1,0 +1,123 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+{\*\generator Riched20 10.0.22000}\viewkind4\uc1 
+\pard\sl240\slmult1\f0\fs22\lang9\par
+EXP 5 ELECTION ALGORITHM\par
+\par
+import java.util.Scanner;\par
+\par
+public class GFG \{\par
+\par
+\tab class Pro \{\par
+\tab\tab int id;\par
+\tab\tab boolean act;\par
+\tab\tab Pro(int id)\par
+\tab\tab\{\par
+\tab\tab\tab this.id = id;\par
+\tab\tab\tab act = true;\par
+\tab\tab\}\par
+\tab\}\par
+\tab int TotalProcess;\par
+\tab Pro[] process;\par
+\tab public GFG() \{ \}\par
+\tab public void initialiseGFG()\par
+\tab\{\par
+\tab\tab System.out.println("No of processes 5");\par
+\tab\tab TotalProcess = 5;\par
+\tab\tab process = new Pro[TotalProcess];\par
+\tab\tab int i = 0;\par
+\tab\tab while (i < process.length) \{\par
+\tab\tab\tab process[i] = new Pro(i);\par
+\tab\tab\tab i++;\par
+\tab\tab\}\par
+\tab\}\par
+\tab public void Election()\par
+\tab\{\par
+\tab\tab System.out.println("Process no "\par
+\tab\tab\tab\tab\tab\tab + process[FetchMaximum()].id\par
+\tab\tab\tab\tab\tab\tab + " fails");\par
+\tab\tab process[FetchMaximum()].act = false;\par
+\tab\tab System.out.println("Election Initiated by 2");\par
+\tab\tab int initializedProcess = 2;\par
+\par
+\tab\tab int old = initializedProcess;\par
+\tab\tab int newer = old + 1;\par
+\par
+\tab\tab while (true) \{\par
+\tab\tab\tab if (process[newer].act) \{\par
+\tab\tab\tab\tab System.out.println(\par
+\tab\tab\tab\tab\tab "Process " + process[old].id\par
+\tab\tab\tab\tab\tab + " pass Election(" + process[old].id\par
+\tab\tab\tab\tab\tab + ") to" + process[newer].id);\par
+\tab\tab\tab\tab old = newer;\par
+\tab\tab\tab\}\par
+\par
+\tab\tab\tab newer = (newer + 1) % TotalProcess;\par
+\tab\tab\tab if (newer == initializedProcess) \{\par
+\tab\tab\tab\tab break;\par
+\tab\tab\tab\}\par
+\tab\tab\}\par
+\par
+\tab\tab System.out.println("Process "\par
+\tab\tab\tab\tab\tab\tab + process[FetchMaximum()].id\par
+\tab\tab\tab\tab\tab\tab + " becomes coordinator");\par
+\tab\tab int coord = process[FetchMaximum()].id;\par
+\par
+\tab\tab old = coord;\par
+\tab\tab newer = (old + 1) % TotalProcess;\par
+\par
+\tab\tab while (true) \{\par
+\par
+\tab\tab\tab if (process[newer].act) \{\par
+\tab\tab\tab\tab System.out.println(\par
+\tab\tab\tab\tab\tab "Process " + process[old].id\par
+\tab\tab\tab\tab\tab + " pass Coordinator(" + coord\par
+\tab\tab\tab\tab\tab + ") message to process "\par
+\tab\tab\tab\tab\tab + process[newer].id);\par
+\tab\tab\tab\tab old = newer;\par
+\tab\tab\tab\}\par
+\tab\tab\tab newer = (newer + 1) % TotalProcess;\par
+\tab\tab\tab if (newer == coord) \{\par
+\tab\tab\tab\tab System.out.println("End Of Election ");\par
+\tab\tab\tab\tab break;\par
+\tab\tab\tab\}\par
+\tab\tab\}\par
+\tab\}\par
+\tab public int FetchMaximum()\par
+\tab\{\par
+\tab\tab int Ind = 0;\par
+\tab\tab int maxId = -9999;\par
+\tab\tab int i = 0;\par
+\tab\tab while (i < process.length) \{\par
+\tab\tab\tab if (process[i].act && process[i].id > maxId) \{\par
+\tab\tab\tab\tab maxId = process[i].id;\par
+\tab\tab\tab\tab Ind = i;\par
+\tab\tab\tab\}\par
+\tab\tab\tab i++;\par
+\tab\tab\}\par
+\tab\tab return Ind;\par
+\tab\}\par
+\par
+\tab public static void main(String arg[])\par
+\tab\{\par
+\tab\tab GFG object = new GFG();\par
+\tab\tab object.initialiseGFG();\par
+\tab\tab object.Election();\par
+\tab\}\par
+\}\par
+\par
+\par
+OUTPUT\par
+\par
+No of processes 5\par
+Process no 4 fails\par
+Election Initiated by 2\par
+Process 2 pass Election(2) to3\par
+Process 3 pass Election(3) to0\par
+Process 0 pass Election(0) to1\par
+Process 3 becomes coordinator\par
+Process 3 pass Coordinator(3) message to process 0\par
+Process 0 pass Coordinator(3) message to process 1\par
+Process 1 pass Coordinator(3) message to process 2\par
+End Of Election \par
+}
+�
